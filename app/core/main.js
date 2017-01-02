@@ -41,7 +41,7 @@ mb.on('ready', () => {
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }
-  ipcMain.on('asynchronous-message', (event, arg) => {
+  ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
   })
 });
