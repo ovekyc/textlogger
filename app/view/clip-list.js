@@ -4,15 +4,15 @@ import update from 'react-addons-update';
 import readline from 'readline';
 import Clip from './clip';
 import {ipcRenderer} from 'electron';
+import autobind from 'autobind-decorator';
 
+@autobind
 export default class ClipList extends React.Component {
   constructor() {
     super();
     this.state = {
       logs: []
     };
-    this.readFile = this.readFile.bind(this);
-    this.deleteLog = this.deleteLog.bind(this);
     this.readFile();
   }
 
@@ -27,7 +27,7 @@ export default class ClipList extends React.Component {
     });
     let data = '';
     this.state.logs.map((log, i)=>{
-      if(index != i) data += log + '\n';
+      if (index !== i) data = data + log + '\n';
     });
     ipcRenderer.send('delete-log', data);
   }
@@ -45,7 +45,7 @@ export default class ClipList extends React.Component {
   render() {
     return (
       <div>
-        {this.state.logs.map((content,i)=><Clip contents = {content}
+        {this.state.logs.map((content, i)=><Clip contents = {content}
                                                 deleteLog = {this.deleteLog}
                                                 index = {i}/>)}
       </div>

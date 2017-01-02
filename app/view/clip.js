@@ -8,10 +8,8 @@ export default class Clip extends React.Component {
   render() {
     return (
       <div>
-        <p>
           <div>{this.props.contents}</div>
           <button onClick={()=>this.props.deleteLog(this.props.index)}> delete </button>
-        </p>
       </div>
     );
   }

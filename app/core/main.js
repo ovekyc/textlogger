@@ -17,7 +17,7 @@ const mb = menubar({index: indexPath});
 
 function saveContents() {
   const clip = clipboard.readText();
-  console.log(clip);
+  console.log(clip); // eslint-disable-line no-console
 
   if (setting.enableServiceHook) {
     let service;
@@ -43,7 +43,7 @@ mb.on('ready', () => {
   }
   ipcMain.on('delete-log', (event, arg) => {
     fs.writeFile(logPath, arg);
-  })
+  });
 });
 
 mb.on('show', () => {
