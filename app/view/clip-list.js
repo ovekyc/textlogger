@@ -16,25 +16,25 @@ export default class ClipList extends React.Component {
     this.readFile();
   }
 
-  deleteLog(i) {
+  deleteLog(index) {
     this.setState({
       logs: update(
         this.state.logs,
         {
-          $splice: [[i, 1]]
+          $splice: [[index, 1]]
         }
       )
     });
     let data = '';
-    this.state.logs.map((log, index)=>{
+    this.state.logs.map((log, i)=>{
       if(index != i) data += log + '\n';
     });
-    ipcRenderer.send('asynchronous-message', data);
+    ipcRenderer.send('delete-log', data);
   }
 
   readFile() {
     const rl = readline.createInterface({
-      input: fs.createReadStream('log.txt'),
+      input: fs.createReadStream('log.txt')
     });
 
     rl.on('line', (line) => {
@@ -48,9 +48,6 @@ export default class ClipList extends React.Component {
         {this.state.logs.map((content,i)=><Clip contents = {content}
                                                 deleteLog = {this.deleteLog}
                                                 index = {i}/>)}
-        <button onClick = {()=>{
-          this.deleteLog(0);
-        }}> hey </button>
       </div>
     );
   }
