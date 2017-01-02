@@ -1,4 +1,4 @@
-import {app, globalShortcut, clipboard} from 'electron';
+import {app, globalShortcut, clipboard, ipcMain} from 'electron';
 import fs from 'fs';
 import menubar from 'menubar';
 import setting from '../setting.json';
@@ -44,6 +44,9 @@ mb.on('ready', () => {
   if (!globalShortcut.isRegistered('Control+Command+S')) {
     // TODO: alert and end process
   }
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    fs.writeFile(logPath, arg);
+  })
 });
 
 mb.on('show', () => {
